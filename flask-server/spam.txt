@@ -1,0 +1,3 @@
+cd flask-server
+.venv\Scripts\activate
+flask --app server run --debug

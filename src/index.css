@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Tajawal", sans-serif !important;
+  background-color: #03001c;
+  user-select: none;
+}
+
+.firstNoRounded:first-child {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+.forceColor {
+  background-color: #03001c !important;
+  color: #ffffff !important;
+  border: solid 1px;
+}
+.forceColorForClub {
+  background-color: #1b263b !important;
+ 
+ 
+}
+.forceColorForMainClub {
+  background-color: #301e67 !important;
+  color: #ffffff !important;
+ 
+}
+
+.winner {
+  color: #cdfb0a;
+}
+.loser {
+  color: #b80b2d;
+}
+
+/*
+
+.CampeonatoR {
+  background-color: #301E67;
+  color: #ffffff;
+}
+
+
+.ChampionshipR {
+  background-color: #b80b2d;
+  color: #ffffff;
+}
+
+
+.PremierR {
+  background-color: #38003d;
+  color: #05f1ff;
+}
+
+
+.UEFAR {
+  background-color: #030646;
+  color: #ffffff;
+}
+
+
+.EuropeanR {
+  background-color: #000000;
+  color: #ff6900;
+}
+
+
+.LigueR {
+  background-color: #cdfb0a;
+  color: #091c3e;
+}
+
+
+.BundesligaR {
+  background-color: #d3010c;
+  color: #ffffff;
+}
+
+
+.SerieR {
+  background-color: #008fd7;
+  color: #ffffff;
+  border: solid 1px white
+}
+
+
+.EredivisieR {
+  background-color: #002b63;
+  color: #ffffff;
+}
+
+
+.PrimeiraR {
+  background-color: #000000;
+  border: solid 1px white;
+  color: #ffffff;
+}
+
+
+.CopaR {
+  background-color: #060404;
+  color: #f8cd4c;
+}
+
+
+.PrimeraR {
+  background-color: #000000;
+  color: #ffffff;
+  
+}
+
+
+.FIFAR {
+  background-color: #000000;
+  color: #ffffff;
+} */
