@@ -46,9 +46,11 @@ function MatchPalette(props) {
   let timeOfMatch = new Date(props.val["utcDate"]),
     timeOfLastUpdate = new Date(props.val["lastUpdated"]);
   timeOfLastUpdate.setHours(timeOfLastUpdate.getHours() - 2);
-  let rest = timeOfLastUpdate - timeOfMatch,
-    homeState,
-    awayState;
+  let rest = timeOfLastUpdate - timeOfMatch;
+  if ((rest - 60 * 1000) / (1000 * 60) > 60) {
+    rest = rest - 5 * 1000 * 60;
+  }
+  let homeState, awayState;
   if (props.val["score"]["winner"] === "HOME_TEAM") {
     homeState = "winner";
     awayState = "loser";
@@ -74,7 +76,7 @@ function MatchPalette(props) {
           className="w-2/6 gap-y-6 flex items-center flex-col  justify-center text-lg font-bold "
         >
           <img
-            className="w-9 md:w-12  cursor-pointer"
+            className="w-9 md:w-12  cursor-pointer  hover:scale-110 transition-all "
             src={props.val["homeTeam"]["crest"]}
             onClick={() =>
               props.requestingClubInfo(props.val["homeTeam"]["id"])
@@ -83,14 +85,14 @@ function MatchPalette(props) {
             alt=""
           />
           <p
-            className={"text-sm md:text-base cursor-pointer " + homeState}
+            className={"text-sm md:text-base cursor-pointer  hover:scale-110 transition-all   " + homeState}
             onClick={() =>
               props.requestingClubInfo(props.val["homeTeam"]["id"])
             }
           >
             {props.val["homeTeam"]["name"]}
           </p>
-          <FontAwesomeIcon className="text-sm text-gray-400" icon={faHouse} />
+          <FontAwesomeIcon className={"text-sm text-gray-400 "  + homeState} icon={faHouse} />
         </div>
         {/* mid pallete (score ,comp and stage) */}
         <div className="w-2/6  flex justify-center items-center  text-sm md:text-lg font-bold">
@@ -118,26 +120,26 @@ function MatchPalette(props) {
               {translateList["status"][props.val["status"]]["tr"]}
             </p>
             {/* date if finished*/}
-            
-              <p className="text-xs me-1">
-                {props.val["status"] === "FINISHED"
-                  ? Math.floor((rest - 90 * 1000 * 60) / (1000 * 60 * 60) < 24)
-                    ? formatter.format(
-                        -Math.floor((rest - 90 * 1000 * 60) / (1000 * 60 * 60)),
-                        "hours"
-                      )
-                    : formatter.format(
-                        -Math.floor(
-                          (rest - 90 * 1000 * 60) / (1000 * 60 * 60 * 24)
-                        ),
-                        "days"
-                      )
-                  : props.val["status"] === "IN_PLAY"
-                  ? ""
-                  : props.val["status"] !== "PAUSED" &&
-                    new Date(props.val["utcDate"]).toLocaleString("en")}
-              </p>
-            
+
+            <p className="text-xs me-1">
+              {props.val["status"] === "FINISHED"
+                ? Math.floor((rest - 90 * 1000 * 60) / (1000 * 60 * 60) < 24)
+                  ? formatter.format(
+                      -Math.floor((rest - 90 * 1000 * 60) / (1000 * 60 * 60)),
+                      "hours"
+                    )
+                  : formatter.format(
+                      -Math.floor(
+                        (rest - 90 * 1000 * 60) / (1000 * 60 * 60 * 24)
+                      ),
+                      "days"
+                    )
+                : props.val["status"] === "IN_PLAY"
+                ? ""
+                : props.val["status"] !== "PAUSED" &&
+                  new Date(props.val["utcDate"]).toLocaleString("fr")}
+            </p>
+
             {/* in_play time */}
             {props.val["status"] === "IN_PLAY" && (
               <>
@@ -168,7 +170,7 @@ function MatchPalette(props) {
           className="w-2/6 flex gap-y-6 items-center flex-col  justify-center text-lg font-bold"
         >
           <img
-            className="w-9 md:w-12 cursor-pointer"
+            className="w-9 md:w-12 cursor-pointer hover:scale-110 transition-all"
             onClick={() =>
               props.requestingClubInfo(props.val["awayTeam"]["id"])
             }
@@ -177,7 +179,7 @@ function MatchPalette(props) {
             alt=""
           />
           <p
-            className={"text-sm md:text-base cursor-pointer " + awayState}
+            className={"text-sm md:text-base cursor-pointer hover:scale-110 transition-all " + awayState}
             onClick={() =>
               props.requestingClubInfo(props.val["awayTeam"]["id"])
             }
@@ -185,7 +187,7 @@ function MatchPalette(props) {
             {props.val["awayTeam"]["name"]}
           </p>
           <FontAwesomeIcon
-            className="text-sm text-gray-400"
+            className={"text-sm text-gray-400 " + awayState}
             icon={faBusSimple}
           />
         </div>

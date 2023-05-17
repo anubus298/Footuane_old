@@ -1,15 +1,16 @@
 import GroupCard from "./GroupCard";
 import BeforeTable from "../BeforeTable";
 import MatchPalette from "../../MatchesSection/MatchPallete";
-
+import TopScorer from "../TopScorer";
 import { useEffect, useState } from "react";
 function CupTable(props) {
-  const [cupMatches, setCupMatches] = useState({});
-
+  const [cupMatches, setCupMatches] = useState({}),
+   [topScorerDataC, setTopScorerDataC] = useState({});
+  
   useEffect(() => {
     fetch(
       props.localUrl +
-        "/upComingCompMatches/" +
+        "/upComingCupMatches/" +
         props.competitionInfo["competition"]["id"]
     )
       .then((res) => res.json())
@@ -17,6 +18,13 @@ function CupTable(props) {
         console.log("from cupTable");
         console.log(data);
         setCupMatches(data);
+      });
+      fetch(props.localUrl + "/topScorer/" + props.competitionInfo["competition"]["id"])
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("from TopScorer");
+        console.log(data);
+        setTopScorerDataC(data);
       });
   }, [props.competitionInfo, props.localUrl]);
   return (
@@ -66,6 +74,14 @@ function CupTable(props) {
                   ></MatchPalette>
                 );
               })}
+               {topScorerDataC["scorers"] !== undefined && (
+        <TopScorer
+          requestingClubInfo={props.requestingClubInfo}
+          localUrl={props.localUrl}
+          id={props.competitionInfo["competition"]["id"]}
+          topScorerData={topScorerDataC}
+        ></TopScorer>
+      )}
           </div>
         </div>
       </div>

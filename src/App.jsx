@@ -45,7 +45,7 @@ function App() {
     };
   }, []);
   return (
-    <StrictMode>
+    <>
       <Backdrop
         open={isWaiting}
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -83,7 +83,7 @@ function App() {
         allCompetition={allCompetition}
       />
       <FooterComp></FooterComp>
-    </StrictMode>
+    </>
   );
 }
 

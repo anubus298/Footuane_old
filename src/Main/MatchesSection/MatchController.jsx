@@ -1,7 +1,7 @@
 import CompetitionUi from "./CompetitionUi.tsx";
 function MatchController(props) {
   return (
-    <div className=" h-[650px] overflow-auto border-e-1 border-s-1 border-white ">
+    <div className="mt-10  h-[650px] overflow-auto border-e-1 border-s-1 border-white ">
       {Object.keys(props.matches).map((val) => {
         return (
           <CompetitionUi

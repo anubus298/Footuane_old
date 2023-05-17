@@ -3,7 +3,39 @@ import BeforeTable from "../BeforeTable";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Tooltip } from "@mui/material";
+import { useEffect, useState } from "react";
+import MatchPalette from "../../MatchesSection/MatchPallete";
+import TopScorer from "../TopScorer";
 function LeagueTable(props) {
+  const [topScorerData, setTopScorerData] = useState({}),
+    [leagueMatches, setLeagueMatches] = useState({});
+
+  useEffect(() => {
+    fetch(
+      props.localUrl +
+        "/upComingLeagueMatches/" +
+        props.competitionInfo["competition"]["id"] +
+        "/" +
+        props.competitionInfo["season"]["currentMatchday"]
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("from leagueTable");
+        console.log(data);
+        setLeagueMatches(data);
+      });
+    fetch(
+      props.localUrl +
+        "/topScorer/" +
+        props.competitionInfo["competition"]["id"]
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("from TopScorer");
+        console.log(data);
+        setTopScorerData(data);
+      });
+  }, [props.competitionInfo, props.localUrl]);
   const translateCard = {
       draw: "تعادل",
       form: "النمط",
@@ -68,7 +100,7 @@ function LeagueTable(props) {
   }
   let rows: GridRowsProp = temp;
   return (
-    <div className="flex flex-col justify-evenly w-full md:w-8/12 py-5 px-2 md:px-10">
+    <div className="flex gap-y-5 flex-col justify-evenly w-full md:w-8/12 py-5 px-2 md:px-10">
       <BeforeTable
         localUrl={props.localUrl}
         name={props.competitionInfo["competition"]["name"]}
@@ -93,6 +125,44 @@ function LeagueTable(props) {
           }}
         />
       </ThemeProvider>
+      <div className="bg-mainGrey p-5">
+        <p className="text-xl font-bold text-end text-white">
+          : مباريات الجولة الحالية{" "}
+        </p>
+      </div>
+      <div className="flex gap-y-5 flex-col">
+        {leagueMatches["matches"] !== undefined &&
+          leagueMatches["matches"].length === 0 && (
+            <p className="font-extrabold w-full text-center text-xl ">
+              لا توجد
+            </p>
+          )}
+        {leagueMatches["matches"] !== undefined &&
+          leagueMatches["matches"].map((el) => {
+            return (
+              <MatchPalette
+                setMatches={props.setMatches}
+                requestingClubInfo={props.requestingClubInfo}
+                val={el}
+                key={crypto.randomUUID()}
+                callingCompetitionTable={props.callingCompetitionTable}
+              ></MatchPalette>
+            );
+          })}
+      </div>
+      <div className="bg-mainGrey p-5">
+        <p className="text-xl font-bold text-end text-white">: الهدافين </p>
+      </div>
+      <div className="w-full ">
+        {topScorerData["scorers"] !== undefined && (
+          <TopScorer
+            requestingClubInfo={props.requestingClubInfo}
+            localUrl={props.localUrl}
+            id={props.competitionInfo["competition"]["id"]}
+            topScorerData={topScorerData}
+          ></TopScorer>
+        )}
+      </div>
     </div>
   );
 

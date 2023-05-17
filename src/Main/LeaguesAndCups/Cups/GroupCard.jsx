@@ -36,7 +36,7 @@ function GroupCard(props) {
         </p>
       </AccordionSummary>
       <AccordionDetails>
-        <div className="p-5 w-full"></div>
+        
         <ThemeProvider theme={ThemeOptions}>
           <DataGrid
             disableColumnMenu={true}
@@ -84,7 +84,7 @@ function makingRows(data) {
   return temp;
 }
 
-function makingColumns(data, func, width) {
+function makingColumns(data, func) {
   const translateCard = {
     draw: "تعادل",
     form: "النمط",

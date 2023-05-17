@@ -19,7 +19,7 @@ function CompetitionUi(props) {
   return (
     <div>
       <div className="px-8 mt-10 py-2 text-white flex items-center justify-evenly bg-mainGrey rounded-t-md">
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-2 hover:scale-110 transition-all">
           <p
             className="cursor-pointer"
             onClick={() =>

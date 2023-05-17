@@ -79,7 +79,7 @@ def ClubInfo(clubId):
     liveIntoJson = live.json()
     for player in liveIntoJson["squad"]:
         dataOfPlayers[player["position"]].append(player)
-    liveIntoJson['squad'] = dataOfPlayers
+    liveIntoJson["squad"] = dataOfPlayers
     return liveIntoJson
 
 
@@ -133,11 +133,11 @@ def listOfcompetition():
     return data
 
 
-@app.route("/upComingCompMatches/<string:id>")
-def upComingCompMatches(id):
-    now = datetime.datetime.now()
-    url = "http://api.football-data.org/v4/competitions/%s/matches?status=SCHEDULED" % (
-        id
+@app.route("/upComingCupMatches/<int:id>")
+def upComingLeagueMatches(id):
+    url = (
+        "http://api.football-data.org/v4/competitions/%s/matches?status=SCHEDULED,IN_PLAY,PAUSED,"
+        % (id)
     )
     headers = {"X-Auth-Token": "0ac745db8571475481f4535bc190ee1e"}
     live = requests.get(
@@ -145,19 +145,76 @@ def upComingCompMatches(id):
         headers=headers,
     )
     live.raise_for_status()
-    data = OrderedDict()
-    liveIntoJson = live.json()
-    competition = []
-    for match in liveIntoJson["matches"]:
-        if match["stage"] not in competition:
-            competition.append(match["stage"])
-    for compt in competition:
-        data[compt] = []
-    for match in liveIntoJson["matches"]:
-        data[match["stage"]].append(match)
+    # data = OrderedDict()
+    # liveIntoJson = live.json()
+    # competition = []
+    # for match in liveIntoJson["matches"]:
+    #     if match["stage"] not in competition:
+    #         competition.append(match["stage"])
+    # for compt in competition:
+    #     data[compt] = []
+    # for match in liveIntoJson["matches"]:
+    #     data[match["stage"]].append(match)
     return live.json()
 
 
 @app.route("/images/<int:id>")
 def returningImg(id):
     return send_file("./assets/png/%s.png" % (id), mimetype="image/png")
+
+
+@app.route("/coco")
+def coco():
+    url = "https://api.football-data.org/v4/competitions/PL/scorers"
+    headers = {"X-Auth-Token": "0ac745db8571475481f4535bc190ee1e"}
+    live = requests.get(
+        url,
+        headers=headers,
+    )
+    live.raise_for_status()
+    return live.json()
+
+
+
+@app.route("/upComingLeagueMatches/<int:id>/<int:matchDay>")
+def upComingCupMatches(id,matchDay):
+    url = (
+        "http://api.football-data.org/v4/competitions/%d/matches?matchday=%d"
+        % (id,matchDay)
+    )
+    headers = {"X-Auth-Token": "0ac745db8571475481f4535bc190ee1e"}
+    live = requests.get(
+        url,
+        headers=headers,
+    )
+    live.raise_for_status()
+    # data = OrderedDict()
+    # liveIntoJson = live.json()
+    # competition = []
+    # for match in liveIntoJson["matches"]:
+    #     if match["stage"] not in competition:
+    #         competition.append(match["stage"])
+    # for compt in competition:
+    #     data[compt] = []
+    # for match in liveIntoJson["matches"]:
+    #     data[match["stage"]].append(match)
+    return live.json()
+
+
+
+@app.route("/topScorer/<int:id>")
+def topScorer(id):
+    url = "https://api.football-data.org/v4/competitions/%d/scorers" % (id)
+    headers = {"X-Auth-Token": "0ac745db8571475481f4535bc190ee1e"}
+    live = requests.get(
+        url,
+        headers=headers,
+    )
+    live.raise_for_status()
+    return live.json()
+
+
+
+
+
+

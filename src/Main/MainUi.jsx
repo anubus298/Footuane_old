@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SkeletonUnion from "./SkeletonBeforeLoading/Skeleton";
 import MatchController from "./MatchesSection/MatchController";
+import DocumentTitle from "react-document-title";
 import RelativeTabs from "./Siders/RelativeTabs";
 import CompetitionTable from "./LeaguesAndCups/Leagues/CompetitionTable";
 import ClubInfo from "./MatchesSection/ClubInfo/ClubInfo";
@@ -35,26 +36,27 @@ export default function MainUi(props) {
         <div className="w-5/6 md:w-2/3 flex flex-col gap-y-10 md:gap-y-2 first:mt-5 first:rounded-t-none last:mb-20 ">
           {!props.isWaiting ? (
             props.currentTab === "matches" && (
-              <>
-                <MatchController
-                  setMatches={setMatches}
-                  callingCompetitionTable={props.callingCompetitionTable}
-                  requestingClubInfo={requestingClubInfo}
-                  currentTab={props.currentTab}
-                  matches={matches}
-                  localUrl={props.localUrl}
-                ></MatchController>
-                {props.width > 875 &&
-                  props.allCompetition["الدوريات"] !== undefined && (
-                    <RelativeTabs
-                      localUrl={props.localUrl}
-                      allCompetition={props.allCompetition}
-                      callingCompetitionTable={props.callingCompetitionTable}
-                      setCurrentTab={props.setCurrentTab}
-                    ></RelativeTabs>
-                  )}
-                {}
-              </>
+              <DocumentTitle title="Footuane | المباريات ">
+                <div>
+                  <MatchController
+                    setMatches={setMatches}
+                    callingCompetitionTable={props.callingCompetitionTable}
+                    requestingClubInfo={requestingClubInfo}
+                    currentTab={props.currentTab}
+                    matches={matches}
+                    localUrl={props.localUrl}
+                  ></MatchController>
+                  {props.width > 875 &&
+                    props.allCompetition["الدوريات"] !== undefined && (
+                      <RelativeTabs
+                        localUrl={props.localUrl}
+                        allCompetition={props.allCompetition}
+                        callingCompetitionTable={props.callingCompetitionTable}
+                        setCurrentTab={props.setCurrentTab}
+                      ></RelativeTabs>
+                    )}
+                </div>
+              </DocumentTitle>
             )
           ) : (
             <SkeletonUnion></SkeletonUnion>
@@ -74,7 +76,7 @@ export default function MainUi(props) {
               )}
 
             <CompetitionTable
-            width={props.width}
+              width={props.width}
               requestingClubInfo={requestingClubInfo}
               localUrl={props.localUrl}
               setMatches={props.setMatches}
@@ -86,7 +88,9 @@ export default function MainUi(props) {
           </>
         )}
         {props.currentTab === "club" && (
-          <ClubInfo clubInfo={clubInfo}></ClubInfo>
+          <DocumentTitle title="Footuane | معلومات النادي">
+            <ClubInfo clubInfo={clubInfo}></ClubInfo>
+          </DocumentTitle>
         )}
       </div>
     </div>
