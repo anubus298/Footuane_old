@@ -66,7 +66,7 @@ function MatchPalette(props) {
 
   return (
     <div
-      className="flex flex-col gap-y-5 text-center bg-mainLightPink text-white transition-all hover:bg-[#32476d] p-5 rounded-md select-none "
+      className="flex firstNoRounded flex-col gap-y-5 text-center bg-mainLightPink text-white transition-all hover:bg-[#32476d] p-5 rounded-md select-none "
       // key={}
     >
       <div className="flex ">

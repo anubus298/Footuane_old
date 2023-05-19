@@ -49,13 +49,13 @@ function CompetitionUi(props) {
         </div>
       </div>
       <div className="flex flex-col gap-y-5 firstNoRounded">
-        {props.matches.map((val) => {
+        {props.matches.map((val,i) => {
           return (
             <MatchPalette
               setMatches={props.setMatches}
               requestingClubInfo={props.requestingClubInfo}
               val={val}
-              key={crypto.randomUUID()}
+              key={i}
               callingCompetitionTable={props.callingCompetitionTable}
             ></MatchPalette>
           );

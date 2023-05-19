@@ -23,7 +23,7 @@ function GroupCard(props) {
   return (
     <Accordion
       className="forceColor w-full"
-      TransitionProps={{ unmountOnExit: true }}
+      TransitionProps={{ unmountOnExit: false }}
     >
       <AccordionSummary
         expandIcon={
@@ -40,6 +40,8 @@ function GroupCard(props) {
         <ThemeProvider theme={ThemeOptions}>
           <DataGrid
             disableColumnMenu={true}
+        disableRowSelectionOnClick={true}
+
             className="w-full"
             initialState={{
               sorting: {
@@ -78,7 +80,7 @@ function makingRows(data) {
         ];
       }
     }
-    tempObJ["id"] = crypto.randomUUID();
+    tempObJ["id"] = j;
     tempObJ["image"] = temp.push(tempObJ);
   }
   return temp;
@@ -107,19 +109,21 @@ function makingColumns(data, func) {
       editable: false,
       headerAlign: "center",
       headerClassName: "bg-mainGrey text-white text-bolder ",
+      width:60
     });
     i++;
   }
   columns[8]["renderCell"] = (params) => {
     return (
-      <div className="flex items-center gap-x-2 justify-center">
+      <div className="flex items-center justify-between w-full">
+        <p className="text-xs">{params.value[2]}</p>
         <Tooltip title={params.value[2]} placement="right-start">
           <img
             onClick={() => {
               func(params.value[1]);
             }}
             src={params.value[0]}
-            width="50px"
+            width="40px"
             alt={params.value[2]}
             className="cursor-pointer"
           />
@@ -129,14 +133,9 @@ function makingColumns(data, func) {
       </div>
     );
   };
-  columns[0]["flex"] = 0.5;
-  columns[2]["flex"] = 0.5;
-  columns[4]["flex"] = 0.5;
-  columns[5]["flex"] = 0.5;
-  columns[6]["flex"] = 0.7;
-  columns[7]["flex"] = 0.5;
-  columns[8]["flex"] = 0.8;
-  columns[9]["flex"] = 0.5;
+ 
+  columns[8]["width"] = 185;
+ 
 
   return columns;
 }

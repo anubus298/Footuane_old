@@ -6,7 +6,7 @@ import MainUi from "./Main/MainUi";
 import { Backdrop } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 function App() {
-  const localUrl = "http://127.0.0.1:5000",
+  const localUrl = "http://192.168.43.10:5000",
     [isWaiting, setIsWaiting] = useState(false),
     [currentDate, setCurrentDate] = useState("today"),
     [currentTab, setCurrentTab] = useState("matches"),
@@ -19,6 +19,8 @@ function App() {
     fetch(localUrl + `/callingCompetitionTable/${comp}`)
       .then((res) => res.json())
       .then((data) => {
+        
+        console.log("calling comp table");
         console.log(data);
         setCompetitionInfo(data);
         setCurrentTab("comp");

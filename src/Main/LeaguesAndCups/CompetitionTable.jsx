@@ -1,5 +1,5 @@
-import LeagueTable from "./leagueTable.tsx";
-import CupTable from "../Cups/CupTable";
+import LeagueTable from "./Leagues/leagueTable.tsx";
+import CupTable from "./Cups/CupTable";
 import DocumentTitle from "react-document-title";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";

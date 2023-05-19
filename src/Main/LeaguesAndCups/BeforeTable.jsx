@@ -20,9 +20,9 @@ function BeforeTable(props) {
     >
       {/* logo and name of competition */}
       <div
-        className={`flex flex-col w-full p-5 gap-y-4 items-center  bg-mainGrey text-white`}
+        className={`flex flex-col w-full p-5 gap-y-4 items-center rounded-lg bg-mainGrey text-white`}
       >
-        <div className="bg-gray-200 w-full flex justify-center py-2">
+        <div className="bg-gray-200 rounded-lg w-full flex justify-center py-2">
           <img className="h-32" src={props.localUrl + "/images/" + props.data["id"]} alt="" />
         </div>
         <p className="font-semibold md:text-2xl text-xl">

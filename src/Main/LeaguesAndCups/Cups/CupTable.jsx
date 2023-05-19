@@ -5,8 +5,8 @@ import TopScorer from "../TopScorer";
 import { useEffect, useState } from "react";
 function CupTable(props) {
   const [cupMatches, setCupMatches] = useState({}),
-   [topScorerDataC, setTopScorerDataC] = useState({});
-  
+    [topScorerDataC, setTopScorerDataC] = useState({});
+
   useEffect(() => {
     fetch(
       props.localUrl +
@@ -19,7 +19,11 @@ function CupTable(props) {
         console.log(data);
         setCupMatches(data);
       });
-      fetch(props.localUrl + "/topScorer/" + props.competitionInfo["competition"]["id"])
+    fetch(
+      props.localUrl +
+        "/topScorer/" +
+        props.competitionInfo["competition"]["id"]
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log("from TopScorer");
@@ -41,19 +45,18 @@ function CupTable(props) {
           <p className="float-right text-xl"> : المجموعات</p>
         </div>
         <div className="flex-col flex w-full gap-y-5">
-          {props.competitionInfo["standings"].map((val) => (
+          {props.competitionInfo["standings"].map((val, i) => (
             <GroupCard
               requestingClubInfo={props.requestingClubInfo}
-              key={crypto.randomUUID()}
+              key={i}
               groupinfo={val}
-            width={props.width}
-
+              width={props.width}
             ></GroupCard>
           ))}
         </div>
       </div>
       <div className="flex flex-col  items-center justify-between my-5">
-        <div className="bg-mainGrey flex flex-col gap-y-10 w-full py-5 px-2 md:px-10 font-extrabold text-white rounded-t-lg">
+        <div className="bg-mainGrey flex flex-col gap-y-10 w-full py-5 px-2 rounded-lg md:px-10 font-extrabold text-white rounded-t-lg">
           <p className="w-full text-end text-xl"> : المباريات المتبقية</p>
           <div className="flex gap-y-5 flex-col">
             {cupMatches["matches"] !== undefined &&
@@ -63,25 +66,30 @@ function CupTable(props) {
                 </p>
               )}
             {cupMatches["matches"] !== undefined &&
-              cupMatches["matches"].map((el) => {
+              cupMatches["matches"].map((el, i) => {
                 return (
                   <MatchPalette
                     setMatches={props.setMatches}
                     requestingClubInfo={props.requestingClubInfo}
                     val={el}
-                    key={crypto.randomUUID()}
+                    key={i}
                     callingCompetitionTable={props.callingCompetitionTable}
                   ></MatchPalette>
                 );
               })}
-               {topScorerDataC["scorers"] !== undefined && (
-        <TopScorer
-          requestingClubInfo={props.requestingClubInfo}
-          localUrl={props.localUrl}
-          id={props.competitionInfo["competition"]["id"]}
-          topScorerData={topScorerDataC}
-        ></TopScorer>
-      )}
+            <div className="bg-mainGrey p-5 rounded-lg">
+              <p className="text-xl font-bold text-end text-white">
+                : الهدافين{" "}
+              </p>
+            </div>
+            {topScorerDataC["scorers"] !== undefined && (
+              <TopScorer
+                requestingClubInfo={props.requestingClubInfo}
+                localUrl={props.localUrl}
+                id={props.competitionInfo["competition"]["id"]}
+                topScorerData={topScorerDataC}
+              ></TopScorer>
+            )}
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import SkeletonUnion from "./SkeletonBeforeLoading/Skeleton";
 import MatchController from "./MatchesSection/MatchController";
 import DocumentTitle from "react-document-title";
 import RelativeTabs from "./Siders/RelativeTabs";
-import CompetitionTable from "./LeaguesAndCups/Leagues/CompetitionTable";
+import CompetitionTable from "./LeaguesAndCups/CompetitionTable";
 import ClubInfo from "./MatchesSection/ClubInfo/ClubInfo";
 
 export default function MainUi(props) {
@@ -92,6 +92,7 @@ export default function MainUi(props) {
             <ClubInfo clubInfo={clubInfo}></ClubInfo>
           </DocumentTitle>
         )}
+       
       </div>
     </div>
   );

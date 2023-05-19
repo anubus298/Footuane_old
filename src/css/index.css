@@ -8,10 +8,17 @@ body {
   background-color: #03001c;
   user-select: none;
 }
+.EmbedCodeWrapper ,.VideoPlayerStoriesC{
+  filter: opacity(0) !important;
+}
+
+
+
 
 .firstNoRounded:first-child {
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
+  border-top-left-radius: 0 ;
+  border-top-right-radius: 0 ;
+
 }
 .forceColor {
   background-color: #03001c !important;

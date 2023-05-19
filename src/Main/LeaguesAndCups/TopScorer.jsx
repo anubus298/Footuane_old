@@ -61,7 +61,7 @@ function makingRows(data) {
         ];
       }
     }
-    tempObJ["id"] = crypto.randomUUID();
+    tempObJ["id"] = j;
     temp.push(tempObJ);
   }
   console.log("temp is :");
@@ -87,6 +87,7 @@ function makingColumns(data, func) {
       editable: false,
       headerAlign: "center",
       headerClassName: "bg-mainGrey text-white text-bolder ",
+      columns: 85,
     });
     i++;
   }
@@ -107,10 +108,8 @@ function makingColumns(data, func) {
       </div>
     );
   };
-  columns[4]["flex"] = 1.5;
-  columns[1]["flex"] = 0.5;
-  columns[2]["flex"] = 0.5;
-  columns[3]["flex"] = 0.5;
+  columns[4]["width"] = 200;
+  
 
   return columns;
 }

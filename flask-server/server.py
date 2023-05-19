@@ -78,7 +78,8 @@ def ClubInfo(clubId):
     dataOfPlayers = {"Goalkeeper": [], "Defence": [], "Midfield": [], "Offence": []}
     liveIntoJson = live.json()
     for player in liveIntoJson["squad"]:
-        dataOfPlayers[player["position"]].append(player)
+        if player["position"] in dataOfPlayers.keys():
+            dataOfPlayers[player["position"]].append(player)
     liveIntoJson["squad"] = dataOfPlayers
     return liveIntoJson
 
@@ -93,7 +94,7 @@ def callingCompetitionTable(compId):
     )
     live.raise_for_status()
     if live.json()["competition"]["type"] != "CUP":
-        return live.json()
+        return OrderedDict(live.json())
     else:
         aide = live.json()
         for group in aide["standings"]:
@@ -175,12 +176,11 @@ def coco():
     return live.json()
 
 
-
 @app.route("/upComingLeagueMatches/<int:id>/<int:matchDay>")
-def upComingCupMatches(id,matchDay):
-    url = (
-        "http://api.football-data.org/v4/competitions/%d/matches?matchday=%d"
-        % (id,matchDay)
+def upComingCupMatches(id, matchDay):
+    url = "http://api.football-data.org/v4/competitions/%d/matches?matchday=%d" % (
+        id,
+        matchDay,
     )
     headers = {"X-Auth-Token": "0ac745db8571475481f4535bc190ee1e"}
     live = requests.get(
@@ -201,7 +201,6 @@ def upComingCupMatches(id,matchDay):
     return live.json()
 
 
-
 @app.route("/topScorer/<int:id>")
 def topScorer(id):
     url = "https://api.football-data.org/v4/competitions/%d/scorers" % (id)
@@ -212,9 +211,3 @@ def topScorer(id):
     )
     live.raise_for_status()
     return live.json()
-
-
-
-
-
-

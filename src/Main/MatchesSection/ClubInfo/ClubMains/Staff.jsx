@@ -22,7 +22,7 @@ function Staff(props) {
       <div className="bg-mainGrey flex flex-col gap-y-10 w-full py-5 px-2 md:px-10 font-extrabold text-white rounded-t-lg">
         <Accordion
           className="forceColorForClub"
-          TransitionProps={{ unmountOnExit: true }}
+          TransitionProps={{ unmountOnExit: false }}
         >
           <AccordionSummary
             expandIcon={

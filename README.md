@@ -22,7 +22,7 @@ The tools, libraries,Frameworks that i used to make this project :
 
 VS code extensions : 
 - Better Comments 
-- Black Formatter (python formatter)
+- Black Formatter (python formatter) 
 - Code Spell Checker
 - CSS peek
 - ESLint (must have)
@@ -48,15 +48,9 @@ i have to say i learned a lot of things in this week :
 
 
 
-## Revi
-
-We use [Semantic Versioning](http://semver.org/) for versioning. For the versions
-available, see the [tags on this
-repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
-
 ## Authors
 
-  - Safouane El Arari : 19 yo from morocco student Engineer in Ensao Web Developer with +9 months experience
+   Safouane El Arari : 19 yo from morocco student Engineer in Ensao Web Developer with +9 months experience
   [Linkedin page]  (https://www.linkedin.com/in/safouane-el-arari/)
   Email : Araristaf@gmail.com 
   You're welcome to connect with me .

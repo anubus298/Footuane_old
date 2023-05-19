@@ -22,7 +22,7 @@ export default function MiniTab(props) {
   return (
     <div
       className={
-        "bg-mainLightPink rounded-t-lg md:w-1/5 lg:w-1/6 z-10 flex flex-col gap-y-3 absolute p-5 top-72 text-white " +
+        "bg-mainLightPink rounded-lg md:w-1/5 lg:w-1/6 z-10 flex flex-col gap-y-3 absolute p-5 top-72 text-white " +
         props.inverseDirection +
         "-0"
       }

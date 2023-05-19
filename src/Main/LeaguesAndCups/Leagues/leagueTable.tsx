@@ -108,6 +108,7 @@ function LeagueTable(props) {
       ></BeforeTable>
       <ThemeProvider theme={ThemeOptions}>
         <DataGrid
+          disableRowSelectionOnClick={true}
           disableColumnSelector={true}
           disableDensitySelector={true}
           disableColumnMenu={true}
@@ -125,7 +126,7 @@ function LeagueTable(props) {
           }}
         />
       </ThemeProvider>
-      <div className="bg-mainGrey p-5">
+      <div className="bg-mainGrey p-5 rounded-lg">
         <p className="text-xl font-bold text-end text-white">
           : مباريات الجولة الحالية{" "}
         </p>
@@ -138,19 +139,19 @@ function LeagueTable(props) {
             </p>
           )}
         {leagueMatches["matches"] !== undefined &&
-          leagueMatches["matches"].map((el) => {
+          leagueMatches["matches"].map((el, i) => {
             return (
               <MatchPalette
                 setMatches={props.setMatches}
                 requestingClubInfo={props.requestingClubInfo}
                 val={el}
-                key={crypto.randomUUID()}
+                key={i}
                 callingCompetitionTable={props.callingCompetitionTable}
               ></MatchPalette>
             );
           })}
       </div>
-      <div className="bg-mainGrey p-5">
+      <div className="bg-mainGrey p-5 rounded-lg">
         <p className="text-xl font-bold text-end text-white">: الهدافين </p>
       </div>
       <div className="w-full ">
@@ -176,27 +177,22 @@ function LeagueTable(props) {
         editable: false,
         headerAlign: "center",
         headerClassName: "bg-mainGrey text-xs text-white text-bolder ",
+        width: 65,
       });
       i++;
     }
-    columns[0]["flex"] = 0.5;
-    columns[2]["flex"] = 0.5;
-    columns[5]["flex"] = 0.5;
-    columns[6]["flex"] = 0.5;
-    columns[7]["flex"] = 0.5;
-    columns[8]["flex"] = 0.5;
-    columns[9]["flex"] = 0.5;
-    columns[10]["flex"] = 0.5;
+    columns[9]["width"] = 185;
     columns[9]["renderCell"] = (params) => {
       return (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-between w-full">
+          <p className="text-xs">{params.value[2]}</p>
           <Tooltip title={params.value[2]} placement="right-start">
             <img
               onClick={() => {
                 props.requestingClubInfo(params.value[1]);
               }}
               src={params.value[0]}
-              width="50px"
+              width="40px"
               alt={params.value[2]}
               className="cursor-pointer"
             />
@@ -204,6 +200,37 @@ function LeagueTable(props) {
         </div>
       );
     };
+    columns[10]["renderCell"] = (params) => {
+      return (
+        <div className="flex items-center justify-between w-full">
+          <p className="text-xs">{params.value[2]}</p>
+          <Tooltip title={params.value[2]} placement="right-start">
+            <img
+              onClick={() => {
+                props.requestingClubInfo(params.value[1]);
+              }}
+              src={params.value[0]}
+              width="40px"
+              alt={params.value[2]}
+              className="cursor-pointer"
+            />
+          </Tooltip>
+        </div>
+      );
+    };
+    //! reordring
+    let aide = columns[8]
+    columns[8] = columns[10]
+    columns[10] = aide
+    
+    aide =  columns[7]
+    columns[7] = columns[0]
+    columns[0] = aide
+    
+    aide =  columns[5]
+    columns[5] = columns[6]
+    columns[6] = aide
+    columns.splice(1,1)
   }
 }
 
